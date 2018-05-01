@@ -22,20 +22,20 @@ Card UnoGame::deck_total[76] = {Card(0, "Red"), Card(1, "Red"), Card(2, "Red"),
 UnoGame::UnoGame(){
 
     //Card deck_total[76];
-    Player user;
-    Player comp;
+    user = Player();
+    comp = Player();
     vector<Card> face_up;
     vector<Card> face_down;
 
 }
 void UnoGame::start(){
-
+    
 }
 void UnoGame::play(){
 
 }
 void UnoGame::shuffle(){
-
+    
 }
 void UnoGame::end_game(){
 
@@ -44,7 +44,7 @@ void UnoGame::add_to_faceup(Card c){
 
 }
 void UnoGame::check_facedown(){
- if
+
      //reset_face up
 
 }
