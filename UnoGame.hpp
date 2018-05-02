@@ -1,5 +1,13 @@
+//  created by Juhi Park.
+//  copyright © 2018 Juhi Park. all rights reserved.
+
 #ifndef UNOGAME_HPP
 #define UNOGAME_HPP
+#include "Player.hpp"
+#include <vector>
+#include <cstdlib>
+using namespace std;
+
 
 class UnoGame{
 protected:
@@ -14,7 +22,7 @@ public:
     UnoGame();
     void start();
     void play();
-    void shuffle();
+    void shuffle(vector<Card>& cards);
     void end_game();
     void add_to_faceup(Card c);
     void check_facedown();
