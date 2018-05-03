@@ -64,7 +64,7 @@ void UnoGame::shuffle(vector<Card>& cards){
         assert(index >= 0 && index < total_num);
         Card temp = cards[i];
         cards[i] = cards[r_index];
-        cars[r_index] = temp;
+        cards[r_index] = temp;
     }
 
 }
@@ -86,7 +86,7 @@ void UnoGame::check_facedown(){
         
         //leave out the top car
         Card top = *face_up.end();
-        face_up.popback();
+        face_up.pop_back();
      
         //suffle everything else
         shuffle(face_up);
