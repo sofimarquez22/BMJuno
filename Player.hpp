@@ -2,11 +2,11 @@
 #define Player_hpp
 
 #include <stdio.h>
-
 #include "Card.hpp"
 #include <string>
 #include <vector>
 #include <iostream>
+
 using namespace std;
 
 class Player
