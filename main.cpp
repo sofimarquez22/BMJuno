@@ -1,8 +1,12 @@
 #include <iostream>
-#include "Card.hpp"
+#include "UnoGame.hpp"
+
 using namespace std;
 
 int main(){
-    //creating an object for card
-	return 0;
+    //creating an Uno Game instance
+    UnoGame game;
+    game.start();
+	
+    return 0;
 }
