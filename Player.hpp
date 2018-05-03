@@ -12,6 +12,7 @@ using namespace std;
 class Player
 {
     public:
+
         Player() {};
         void addCard(Card c);
         Card putCard(int index);
