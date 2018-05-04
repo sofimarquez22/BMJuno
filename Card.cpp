@@ -18,11 +18,11 @@ Card::Card(int n, string c){
 void Card::setNum(int nomer){
     num = nomer;
 }
-void Card::setColor(string colur){
-    for(int i=0; i < colur.length(); i++){
-        assert(isalpha(colur[i]));
+void Card::setColor(string color){
+    for(int i=0; i < color.length(); i++){
+        assert(isalpha(color[i]));
     }
-    color = colur;
+    this->color = color;
 }
 void Card::displayCard(){
     cout << "-------------" << endl;

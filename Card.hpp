@@ -10,7 +10,10 @@
 #include <stdio.h>
 #include <string>
 #include <iostream>
+#include <cassert>
+
 using namespace std;
+
 class Card{
 private:
     int num; //number on card
@@ -21,7 +24,7 @@ public:
     int getNum()const{return num;}
     void setNum(int nomer);
     string getColor()const{return color;} //the data type could be changed to an int
-    void setColor(string colur);
+    void setColor(string color);
     void displayCard();
 };
 #endif /* Card_hpp */

@@ -1,8 +1,10 @@
 #include <iostream>
-#include "Card.hpp"
+#include "UnoGame.hpp"
 using namespace std;
 
 int main(){
-    //creating an object for card
+    UnoGame game1;
+    cout << “Welcome to UnoGame” << endl;
+    game1.start();
 	return 0;
 }
