@@ -15,16 +15,18 @@ int Player::checkCard(string color, int number)
     return -1;
 }
 
-Card putCard(int index)
+Card Player::putCard(int index)
 {
     Card result_card;
-    
+    vector<Card>::iterator it = cards_hand.begin(); 
     for(int i = 0; i < cards_hand.size(); i++)
     {
         if( i == index)
             result_card = cards_hand[i];
     }
-    cards_hand.erase(index);
+    for(int i = 0; i <= index; i++)
+        it++;
+    cards_hand.erase(it);
     return result_card;
 }
 
@@ -32,7 +34,7 @@ void Player::seeMyCard()
 {
     for(int i = 0; i < cards_hand.size(); i++)
     {
-        cout << cards_hand[i].displayCard() ;
+        cards_hand[i].displayCard() ;
     }
 }
 

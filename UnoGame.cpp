@@ -3,7 +3,7 @@
 
 #include "UnoGame.hpp"
 
-Card UnoGame::deck_total[76] = {Card(0, "Red"), Card(1, "Red"), Card(2, "Red"),
+const Card UnoGame::deck_total[76] = {Card(0, "Red"), Card(1, "Red"), Card(2, "Red"),
     Card(3, "Red"), Card(4, "Red"), Card(5, "Red"), Card(6, "Red"),
     Card(7, "Red"), Card(8, "Red"), Card(9, "Red"), Card(1, "Red"),
     Card(2, "Red"), Card(3, "Red"), Card(4, "Red"), Card(5, "Red"),
