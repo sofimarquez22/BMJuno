@@ -3,8 +3,9 @@
 using namespace std;
 
 int main(){
-    UnoGame game1;
-    cout << “Welcome to UnoGame” << endl;
-    game1.start();
-	return 0;
+    //creating an Uno Game instance
+    UnoGame game;
+    game.start();
+	
+    return 0;
 }
