@@ -61,7 +61,7 @@ void UnoGame::shuffle(vector<Card>& cards){
     unsigned int r_index = 0, total_num = cards.size();
     for(int i=0; i<total_num-1; i++){
         r_index = rand() % total_num; // generate index num between 0 and total_num-1
-        assert(index >= 0 && index < total_num);
+        assert(r_index >= 0 && r_index < total_num);
         Card temp = cards[i];
         cards[i] = cards[r_index];
         cards[r_index] = temp;

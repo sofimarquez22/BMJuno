@@ -3,6 +3,7 @@
 
 #ifndef UNOGAME_HPP
 #define UNOGAME_HPP
+#include "Card.hpp"
 #include "Player.hpp"
 #include <vector>
 #include <cstdlib>
