@@ -32,7 +32,7 @@ void Player::seeMyCard()
 {
     for(int i = 0; i < cards_hand.size(); i++)
     {
-        cout << cards_hand[i].displayCard() ;
+        cards_hand[i].displayCard();
     }
 }
 
