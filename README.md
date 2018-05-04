@@ -1,2 +1,2 @@
 # BMJuno
-This is our interpretation of a simply UNO game in C++. (The most different programming of all time...)
+This is our interpretation of a simple UNO game in C++. (The most difficult programming of all time...)
