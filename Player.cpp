@@ -24,14 +24,22 @@ Card Player::putCard(int index)
         if( i == index)
             result_card = cards_hand[i];
     }
-    for(int i = 0; i <= index; i++)
+    for(int i = 0; i < index; i++)
         it++;
     cards_hand.erase(it);
+    cout << "sucessfully pulling card\n\n";
     return result_card;
 }
-
+bool Player::emptyHand(){
+    if(cards_hand.size()==0){
+        return true;
+    }
+    return false;
+}
 void Player::seeMyCard()
 {
+    cout << "***Cards on my Hand***\n";
+
     for(int i = 0; i < cards_hand.size(); i++)
     {
         cards_hand[i].displayCard();

@@ -32,4 +32,13 @@ void Card::displayCard(){
     cout << "|           |" << endl;
     cout << "|           |" << endl;
     cout << "-------------" << endl;
+    //displayVisualCard(num, color);
+}
+void Card::displayVisualCard(int num, string color){
+    string cardStr = ""; 
+    string dirStr = "res/";
+    string number = "0";
+    number[0] += num;
+    cardStr = dirStr + color + number + ".png";
+    cout << cardStr << endl;
 }

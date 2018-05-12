@@ -6,6 +6,8 @@
 #include <string>
 #include <vector>
 #include <iostream>
+//include sprites and texture #include <>
+
 
 using namespace std;
 
@@ -18,6 +20,7 @@ class Player
         Card putCard(int index);
         int checkCard(string color, int number);
         void seeMyCard();
+        bool emptyHand();
 
     protected:
         vector<Card> cards_hand;

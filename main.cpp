@@ -5,7 +5,8 @@ using namespace std;
 int main(){
     //creating an Uno Game instance
     UnoGame game;
-    game.start();
+
+    game.play();
 	
     return 0;
 }

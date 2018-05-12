@@ -36,26 +36,101 @@ UnoGame::UnoGame(){
     for(int i=0; i<76; i++)
         face_down.push_back(deck_total[i]);
 
+    srand(static_cast<unsigned int>(time(NULL)));
 }
 void UnoGame::start(){
     //In the beginning of game
     //make sure each player don't own cards
+
     //make sure face up is empty
+    assert(face_up.size() == 0);
     //put every cards to face down
     //shuffle the face down
     shuffle(face_down);
 
     //distribute 7 cards from face down to user
-    for(int i=0; i<7; i++){
+    int counter = 0;
+    while(counter < 7){
+        int i=face_down.size()-1;
         user.addCard(face_down[i]);
-    }
-    //distribute 7 cards from face down to comp
-    //get one card from face down to face up
+        face_down.pop_back();
+        counter++;
+     }
     
+    //distribute 7 cards from face down to comp
+    counter = 0;
+    while(counter < 7){
+        int i=face_down.size()-1;
+        comp.addCard(face_down[i]);
+        face_down.pop_back();
+        counter++;
+    }
+    //get one card from face down to face up
+    face_up.push_back(face_down[face_down.size()-1]);
+    face_down.pop_back();
 
 }
 void UnoGame::play(){
+    start();
+    do{ 
+        cout << "**\n**\nOn Deck\n";
+        face_up[face_up.size()-1].displayCard(); 
+
+        int deck_num = face_up[face_up.size()-1].getNum();
+        string deck_color = face_up[face_up.size()-1].getColor();
     
+        //starting with user turn
+        cout << "YOUR TURN" << endl;
+        //Show the user's Card
+        user.seeMyCard();
+        int user_turn = user.checkCard(deck_color, deck_num);
+        if(user_turn == -1){
+            //if has no match
+            //check if facedown is empty
+            check_facedown(); 
+            //withdraw from facedown (face down not empty)
+            user.addCard(face_down[face_down.size()-1]);
+            face_down.pop_back();
+            //if that card can be played, play it
+            user_turn = user.checkCard(deck_color, deck_num);
+
+            if(user_turn != -1){
+                add_to_faceup(user.putCard(user_turn));
+            }
+        }else{
+            //found a card
+            //put a card in the deck of faceup
+            add_to_faceup(user.putCard(user_turn));
+        }
+    
+        
+        //show the most recent card from face up
+        cout << "**\n**\nOn Deck\n";
+        face_up[face_up.size()-1].displayCard();
+        
+        //other wise, move on to the next comp player 
+        //comp turn
+        cout << "COMPUTER TURN" << endl;
+            
+        deck_num = face_up[face_up.size()-1].getNum();
+        deck_color = face_up[face_up.size()-1].getColor();
+        int comp_turn = comp.checkCard(deck_color, deck_num);
+        if(comp_turn == -1){
+            check_facedown(); 
+            comp.addCard(face_down[face_down.size()-1]);
+            face_down.pop_back();
+            //if that card can be played, play it
+            comp_turn = comp.checkCard(deck_color, deck_num);
+            if(comp_turn != -1){
+                add_to_faceup(comp.putCard(comp_turn));
+            }
+        }else{
+            //found a card
+            //put a card in the deck of faceup
+            add_to_faceup(comp.putCard(comp_turn));
+        }
+ 
+    }while(!end_game());
 }
 void UnoGame::shuffle(vector<Card>& cards){
     unsigned int r_index = 0, total_num = cards.size();
@@ -68,34 +143,47 @@ void UnoGame::shuffle(vector<Card>& cards){
     }
 
 }
-void UnoGame::end_game(){
-    //if
+bool UnoGame::end_game(){
+    //if either user has empty card
+    if(user.emptyHand()){
+        cout << "User won!" << endl;
+        return true;
+        //end game
+        cout << "End of game" << endl;
+    }
+    //if comp has empty card
+    if(comp.emptyHand()){
+        cout << "Computer won!" << endl;
+        return true;
+        //end game
+        cout << "End of game" << endl;
+    }
 
+    return false;
 }
 void UnoGame::add_to_faceup(Card c){
     //add to face up when player as a card that matches 
-    //putCard(num, color);
-
     face_up.push_back(c);
-    //show the most recent card from face up
+
 }
 void UnoGame::check_facedown(){
     //if face down are all gone
     if(face_down.empty()){
-        //reset_face up
-        
+
+        //below is for resetting face_up
         //leave out the top car
-        Card top = *face_up.end();
+        Card top = face_up.back();
         face_up.pop_back();
      
         //suffle everything else
         shuffle(face_up);
         
         //distribute it to face down
-        for(int i=face_up.size()-1; i>=0; i--){
-            face_down.push_back(face_up[i]);
+        while(!face_up.empty()){
+            face_down.push_back(face_up.back());
             face_up.pop_back();
         }
+        face_up.push_back(top);
 
     }//else there are still more card left in face down, don't do anything
 }

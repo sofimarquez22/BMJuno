@@ -7,6 +7,8 @@
 #include "Player.hpp"
 #include <vector>
 #include <cstdlib>
+#include <ctime>
+
 using namespace std;
 
 
@@ -24,7 +26,7 @@ public:
     void start();
     void play();
     void shuffle(vector<Card>& cards);
-    void end_game();
+    bool end_game();
     void add_to_faceup(Card c);
     void check_facedown();
     

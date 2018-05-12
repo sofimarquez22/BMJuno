@@ -23,9 +23,10 @@ public:
     Card(int n, string c);
     int getNum()const{return num;}
     void setNum(int nomer);
-    string getColor()const{return color;} //the data type could be changed to an int
     void setColor(string color);
+    string getColor()const{return color;}
     void displayCard();
+    void displayVisualCard(int num, string color);
 };
 #endif /* Card_hpp */
 
