@@ -11,6 +11,7 @@
 #include <string>
 #include <iostream>
 #include <cassert>
+#include <SFML/Graphics.hpp>
 
 using namespace std;
 
