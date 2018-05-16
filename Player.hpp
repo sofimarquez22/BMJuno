@@ -16,6 +16,7 @@ class Player
     public:
 
         Player() {};
+        int getHandSize()const{return cards_hand.size();}
         void addCard(Card c);
         Card putCard(int index);
         int checkCard(string color, int number);

@@ -72,8 +72,7 @@ void UnoGame::start(){
 }
 void UnoGame::play(){
     start();
-    int card_num;
-    string card_color;
+  
     do{
         cout << "**\n**\nOn Deck\n";
         face_up[face_up.size()-1].displayCard();
@@ -84,9 +83,11 @@ void UnoGame::play(){
         //starting with user turn
         cout << "YOUR TURN" << endl;
         user.seeMyCard();
-        
-        
-        int user_turn = user.checkCard(deck_color, deck_num);
+        int user_turn;
+
+        //inquiring user choice
+        user_turn = getUserInput();
+
         if(user_turn == -1){
             //if has no match
             //check if facedown is empty
@@ -94,6 +95,8 @@ void UnoGame::play(){
             //withdraw from facedown (face down not empty)
             user.addCard(face_down[face_down.size()-1]);
             face_down.pop_back();
+            cout << "After Withdrawing" << endl;
+            user.seeMyCard();
             //if that card can be played, play it
             user_turn = user.checkCard(deck_color, deck_num);
             
@@ -102,12 +105,8 @@ void UnoGame::play(){
             }
         }else{
             //found a card
-            //put a card in the deck of faceup
-            cout << "Enter the card color (ex: blue) and number (ex: 1)" << endl;
-            cin >> card_color >> card_num;
-            int user_card = user.checkCard(card_color, card_num);
-            
-            add_to_faceup(user.putCard(user_card));
+            //put a card in the deck of faceup            
+            add_to_faceup(user.putCard(user_turn));
         }
         
         
@@ -194,5 +193,21 @@ void UnoGame::check_facedown(){
         
     }//else there are still more card left in face down, don't do anything
 }
+int UnoGame::getUserInput(){
+    int result;
+    while(true){
+            cout << "Choose card by index (Enter -1 to withdraw new card): ";
+            cin >> result;
 
+            //validating user's choice of card to see if that matches the 
+            //face deck hasn't implemented yet
+            
+            //it only check whether user has entered -1 
+            //or an index num within the size of user's hand
+            if(result < user.getHandSize() && result >=-1){
+                break;
+            }
+        }
+    return result;
+}
 
