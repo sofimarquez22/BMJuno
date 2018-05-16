@@ -5,6 +5,7 @@
 #define UNOGAME_HPP
 #include "Card.hpp"
 #include "Player.hpp"
+#include "Font.hpp"
 #include <vector>
 #include <cstdlib>
 #include <ctime>
