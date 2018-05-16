@@ -43,10 +43,31 @@ UnoGame::~UnoGame(){
 
 }
 void UnoGame::run(){
+    start();
     while(window.isOpen()){ 
-        
+            sf::Event event;
+            while (window.pollEvent(event) && !end_game())
+            {
+                
+                // Check for specific events
+                switch (event.type)
+                {
+                    case sf::Event::Closed:
+                        window.close();
+                        break;
+                    case sf::Event::KeyPressed:
+                        window.clear();
+                        face_up[face_up.size()-1].displayVisualCard(window, 500, 500);
+                        window.display();
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+
         //processEvents();//included to this event in the play()
-        play();
+        //play();
         //window.clear();
         //window.display();
     }
@@ -58,10 +79,11 @@ void UnoGame::processEvents(){
         // Check for specific events
         switch (event.type)
         {
-            case sf::Event::Closed:
-                window.close();
+            case sf::Event::Closed: 
                 break;
-
+            case sf::Event::KeyPressed:
+                cout << "A Key pressed\n";
+                break;
             default:
                 break;
         }
@@ -100,7 +122,7 @@ void UnoGame::start(){
     
 }
 void UnoGame::play(){
-    start();
+
     sf::Event event;
     while (window.pollEvent(event))
     {
@@ -115,9 +137,7 @@ void UnoGame::play(){
                 break;
         }
     }
-    window.clear();
-    face_up[face_up.size()-1].displayVisualCard(window, 500, 500);
-    window.display();
+ 
 
     /*
     do{
