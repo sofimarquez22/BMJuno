@@ -1,3 +1,6 @@
 .DS_Store
 *.out
 *.swp
+*.o
+SFML-2.5.0
+sfml-app
