@@ -46,8 +46,8 @@ void UnoGame::run(){
     while(window.isOpen()){ 
         processEvents();
         play();
-        window.clear();
-        window.display();
+        //window.clear();
+        //window.display();
     }
 }
 void UnoGame::processEvents(){
@@ -60,6 +60,7 @@ void UnoGame::processEvents(){
             case sf::Event::Closed:
                 window.close();
                 break;
+
             default:
                 break;
         }
@@ -102,14 +103,19 @@ void UnoGame::play(){
   
     do{
         cout << "**\n**\nOn Deck\n";
-        face_up[face_up.size()-1].displayCard();
-        
+        window.clear();
+        face_up[face_up.size()-1].displayVisualCard(window, 500, 500);
+        window.display();
+
         int deck_num = face_up[face_up.size()-1].getNum();
         string deck_color = face_up[face_up.size()-1].getColor();
         
         //starting with user turn
         cout << "YOUR TURN" << endl;
         user.seeMyCard();
+        window.clear();
+        user.seeMyCardVisual(window);
+        window.display();
         int user_turn;
 
         //inquiring user choice
@@ -143,25 +149,10 @@ void UnoGame::play(){
         
         //other wise, move on to the next comp player
         //comp turn
-        cout << "COMPUTER TURN" << endl;
-        
+        cout << "COMPUTER TURN" << endl; 
         deck_num = face_up[face_up.size()-1].getNum();
         deck_color = face_up[face_up.size()-1].getColor();
-        int comp_turn = comp.checkCard(deck_color, deck_num);
-        if(comp_turn == -1){
-            check_facedown();
-            comp.addCard(face_down[face_down.size()-1]);
-            face_down.pop_back();
-            //if that card can be played, play it
-            comp_turn = comp.checkCard(deck_color, deck_num);
-            if(comp_turn != -1){
-                add_to_faceup(comp.putCard(comp_turn));
-            }
-        }else{
-            //found a card
-            //put a card in the deck of faceup
-            add_to_faceup(comp.putCard(comp_turn));
-        }
+        comp_turn(deck_color, deck_num);
         
     }while(!end_game());
 }
@@ -237,4 +228,22 @@ int UnoGame::getUserInput(){
         }
     return result;
 }
+void UnoGame::comp_turn(string deck_color, int deck_num){
+    int comp_turn = comp.checkCard(deck_color, deck_num);
+    if(comp_turn == -1){
+        check_facedown();
+        comp.addCard(face_down[face_down.size()-1]);
+        face_down.pop_back();
+        //if that card can be played, play it
+        comp_turn = comp.checkCard(deck_color, deck_num);
+        if(comp_turn != -1){
+            add_to_faceup(comp.putCard(comp_turn));
+        }
+    }else{
+        //found a card
+        //put a card in the deck of faceup
+        add_to_faceup(comp.putCard(comp_turn));
+    }
 
+
+}

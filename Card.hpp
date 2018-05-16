@@ -30,7 +30,7 @@ public:
     void setColor(string color);
     string getColor()const{return color;}
     void displayCard();
-    void displayVisualCard(sf::RenderWindow &window, int pos);
+    void displayVisualCard(sf::RenderWindow &window, int x, int y);
 
 };
 #endif /* Card_hpp */

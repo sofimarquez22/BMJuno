@@ -47,7 +47,7 @@ void Player::seeMyCard()
 }
 void Player::seeMyCardVisual(sf::RenderWindow &window){
     cout << "**Visual Card**\n";
-    cards_hand[0].displayVisualCard(window, 10);
+    cards_hand[0].displayVisualCard(window, 10, 100);
 
 }
 

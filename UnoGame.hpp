@@ -37,6 +37,7 @@ public:
     void add_to_faceup(Card c);
     void check_facedown();
     int getUserInput();
+    void comp_turn(string deck_color, int deck_num);
     
 };
 

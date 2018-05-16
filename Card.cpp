@@ -34,7 +34,7 @@ void Card::displayCard(){
     cout << "-------------" << endl;
     //displayVisualCard(num, color);
 }
-void Card::displayVisualCard(sf::RenderWindow &window, int pos){
+void Card::displayVisualCard(sf::RenderWindow &window, int x, int y){
     string cardStr = ""; 
     string dirStr = "cards/";
     string number = "0";
@@ -46,6 +46,6 @@ void Card::displayVisualCard(sf::RenderWindow &window, int pos){
         cout << "Error loading image" << endl;
     }
     cardSprite.setTexture(cardTexture);
-    cardSprite.setPosition(10 + pos, 10);
+    cardSprite.setPosition(10 + x, y);
     window.draw(cardSprite);
 }
