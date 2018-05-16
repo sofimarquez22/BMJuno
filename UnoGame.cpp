@@ -119,7 +119,7 @@ void UnoGame::play(){
     face_up[face_up.size()-1].displayVisualCard(window, 500, 500);
     window.display();
 
-    /*
+    
     do{
         cout << "**\n**\nOn Deck\n";
         window.clear();
@@ -176,7 +176,7 @@ void UnoGame::play(){
         comp_turn(deck_color, deck_num);
         
     }while(!end_game());
-    */
+    
 }
 void UnoGame::shuffle(vector<Card>& cards){
     unsigned int r_index = 0, total_num = cards.size();
