@@ -48,7 +48,17 @@ void UnoGame::run(){
             sf::Event event;
             while (window.pollEvent(event) && !end_game())
             {
+                window.clear();
+                face_up[face_up.size()-1].displayVisualCard(window, 500, 500);
+                window.display();
+                cout << "Your turn" << endl;
+
+                user.seeMyCardVisual(window);
+                window.display();
                 
+                int user_turn;
+                user_turn = getUserInput(window);
+
                 // Check for specific events
                 switch (event.type)
                 {
@@ -57,8 +67,6 @@ void UnoGame::run(){
                         break;
                     case sf::Event::KeyPressed:
                         window.clear();
-                        face_up[face_up.size()-1].displayVisualCard(window, 500, 500);
-                        window.display();
                         break;
 
                     default:
@@ -70,23 +78,6 @@ void UnoGame::run(){
         //play();
         //window.clear();
         //window.display();
-    }
-}
-void UnoGame::processEvents(){
-    sf::Event event;
-    while (window.pollEvent(event))
-    {
-        // Check for specific events
-        switch (event.type)
-        {
-            case sf::Event::Closed: 
-                break;
-            case sf::Event::KeyPressed:
-                cout << "A Key pressed\n";
-                break;
-            default:
-                break;
-        }
     }
 }
 void UnoGame::start(){
@@ -254,10 +245,16 @@ void UnoGame::check_facedown(){
         
     }//else there are still more card left in face down, don't do anything
 }
-int UnoGame::getUserInput(){
+int UnoGame::getUserInput(sf::RenderWindow &window){
     int result;
+
+    //const sf::Text text("Choose Card by index (Enter -1 to withdraw new card): ", font);
+    //text.setCharacterSize(30);
+    //text.setStyle(sf::Text::Bold);
+    //text.setFillColor(sf::Color::Red);
     while(true){
-            cout << "Choose card by index (Enter -1 to withdraw new card): ";
+            //window.draw(text);    
+            cout << "Choose" << endl;
             cin >> result;
 
             //validating user's choice of card to see if that matches the 

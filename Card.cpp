@@ -36,7 +36,7 @@ void Card::displayCard(){
 }
 void Card::displayVisualCard(sf::RenderWindow &window, int x, int y){
     string cardStr = ""; 
-    string dirStr = "/Users/mariahernandez/Desktop/Uno/Uno/cards/";
+    string dirStr = "cards/";
     string number = "0";
     number[0] += getNum();
     cardStr = dirStr + getColor() + number + ".png";
