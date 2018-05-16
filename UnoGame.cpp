@@ -44,7 +44,8 @@ UnoGame::~UnoGame(){
 }
 void UnoGame::run(){
     while(window.isOpen()){ 
-        processEvents();
+        
+        //processEvents();//included to this event in the play()
         play();
         //window.clear();
         //window.display();
@@ -100,7 +101,25 @@ void UnoGame::start(){
 }
 void UnoGame::play(){
     start();
-  
+    sf::Event event;
+    while (window.pollEvent(event))
+    {
+        // Check for specific events
+        switch (event.type)
+        {
+            case sf::Event::Closed:
+                window.close();
+                break;
+
+            default:
+                break;
+        }
+    }
+    window.clear();
+    face_up[face_up.size()-1].displayVisualCard(window, 500, 500);
+    window.display();
+
+    /*
     do{
         cout << "**\n**\nOn Deck\n";
         window.clear();
@@ -150,11 +169,14 @@ void UnoGame::play(){
         //other wise, move on to the next comp player
         //comp turn
         cout << "COMPUTER TURN" << endl; 
-        deck_num = face_up[face_up.size()-1].getNum();
+        
         deck_color = face_up[face_up.size()-1].getColor();
+        deck_num = face_up[face_up.size()-1].getNum();
+        
         comp_turn(deck_color, deck_num);
         
     }while(!end_game());
+    */
 }
 void UnoGame::shuffle(vector<Card>& cards){
     unsigned int r_index = 0, total_num = cards.size();
