@@ -137,9 +137,8 @@ void UnoGame::play(){
                 break;
         }
     }
- 
-/*
-    
+
+    /*
     do{
         cout << "**\n**\nOn Deck\n";
         window.clear();
