@@ -138,7 +138,7 @@ void UnoGame::play(){
         }
     }
  
-
+/*
     
     do{
         cout << "**\n**\nOn Deck\n";
@@ -196,6 +196,7 @@ void UnoGame::play(){
         comp_turn(deck_color, deck_num);
         
     }while(!end_game());
+    */
     
 }
 void UnoGame::shuffle(vector<Card>& cards){
