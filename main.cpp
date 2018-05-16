@@ -6,7 +6,7 @@ int main(){
     //creating an Uno Game instance
     UnoGame game;
 
-    game.play();
+    game.run();
 	
     return 0;
 }

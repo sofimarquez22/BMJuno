@@ -11,9 +11,12 @@
 
 using namespace std;
 
+const int WIDTH= 2000;
+const int HEIGHT = 2000;
 
 class UnoGame{
 protected:
+    sf::RenderWindow window;
     static const Card deck_total[76];
     Player user;
     Player comp;
@@ -23,6 +26,10 @@ protected:
 
 public:
     UnoGame();
+    ~UnoGame();
+    //sfml related method
+    void run();
+    void processEvents();
     void start();
     void play();
     void shuffle(vector<Card>& cards);

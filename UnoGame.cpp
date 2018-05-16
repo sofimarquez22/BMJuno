@@ -24,7 +24,8 @@ const Card UnoGame::deck_total[76] = {Card(0, "Red"), Card(1, "Red"), Card(2, "R
     Card(2, "Blue"), Card(3, "Blue"), Card(4, "Blue"), Card(5, "Blue"),
     Card(6, "Blue"), Card(7, "Blue"), Card(8, "Blue"), Card(9, "Blue")
 };
-UnoGame::UnoGame(){
+UnoGame::UnoGame() : window(sf::VideoMode(WIDTH, HEIGHT), "BMJ UNO"){
+    window.setFramerateLimit(60);
     
     //Card deck_total[76];
     user = Player();
@@ -37,6 +38,32 @@ UnoGame::UnoGame(){
         face_down.push_back(deck_total[i]);
     
     srand(static_cast<unsigned int>(time(NULL)));
+}
+UnoGame::~UnoGame(){
+
+}
+void UnoGame::run(){
+    while(window.isOpen()){ 
+        processEvents();
+        play();
+        window.clear();
+        window.display();
+    }
+}
+void UnoGame::processEvents(){
+    sf::Event event;
+    while (window.pollEvent(event))
+    {
+        // Check for specific events
+        switch (event.type)
+        {
+            case sf::Event::Closed:
+                window.close();
+                break;
+            default:
+                break;
+        }
+    }
 }
 void UnoGame::start(){
     //In the beginning of game

@@ -34,11 +34,18 @@ void Card::displayCard(){
     cout << "-------------" << endl;
     //displayVisualCard(num, color);
 }
-void Card::displayVisualCard(int num, string color){
+void Card::displayVisualCard(sf::RenderWindow &window, int pos){
     string cardStr = ""; 
-    string dirStr = "res/";
+    string dirStr = "cards/";
     string number = "0";
-    number[0] += num;
-    cardStr = dirStr + color + number + ".png";
+    number[0] += getNum();
+    cardStr = dirStr + getColor() + number + ".png";
     cout << cardStr << endl;
+    
+    if(!cardTexture.loadFromFile(cardStr)){
+        cout << "Error loading image" << endl;
+    }
+    cardSprite.setTexture(cardTexture);
+    cardSprite.setPosition(10 + pos, 10);
+    window.draw(cardSprite);
 }

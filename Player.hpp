@@ -16,12 +16,14 @@ class Player
     public:
 
         Player() {};
+        ~Player() {};
         int getHandSize()const{return cards_hand.size();}
         void addCard(Card c);
         Card putCard(int index);
         int checkCard(string color, int number);
         void seeMyCard();
         bool emptyHand();
+        void seeMyCardVisual(sf::RenderWindow &window);
 
     protected:
         vector<Card> cards_hand;

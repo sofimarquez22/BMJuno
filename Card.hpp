@@ -16,18 +16,22 @@
 using namespace std;
 
 class Card{
-private:
+protected:
+    sf::Texture cardTexture;
+    sf::Sprite cardSprite;
     int num; //number on card
     string color; //the color of the card
 public:
     Card();
     Card(int n, string c);
+    ~Card() {};
     int getNum()const{return num;}
     void setNum(int nomer);
     void setColor(string color);
     string getColor()const{return color;}
     void displayCard();
-    void displayVisualCard(int num, string color);
+    void displayVisualCard(sf::RenderWindow &window, int pos);
+
 };
 #endif /* Card_hpp */
 
