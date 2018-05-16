@@ -5,6 +5,7 @@
 #define UNOGAME_HPP
 #include "Card.hpp"
 #include "Player.hpp"
+#include "Font.hpp"
 #include <vector>
 #include <cstdlib>
 #include <ctime>
@@ -29,14 +30,13 @@ public:
     ~UnoGame();
     //sfml related method
     void run();
-    void processEvents();
     void start();
     void play();
     void shuffle(vector<Card>& cards);
     bool end_game();
     void add_to_faceup(Card c);
     void check_facedown();
-    int getUserInput();
+    int getUserInput(sf::RenderWindow &window);
     void comp_turn(string deck_color, int deck_num);
     
 };

@@ -25,7 +25,7 @@ const Card UnoGame::deck_total[76] = {Card(0, "Red"), Card(1, "Red"), Card(2, "R
     Card(6, "Blue"), Card(7, "Blue"), Card(8, "Blue"), Card(9, "Blue")
 };
 UnoGame::UnoGame() : window(sf::VideoMode(WIDTH, HEIGHT), "BMJ UNO"){
-    window.setFramerateLimit(60);
+    window.setFramerateLimit(6000);
     
     //Card deck_total[76];
     user = Player();
@@ -46,22 +46,47 @@ void UnoGame::run(){
     start();
     while(window.isOpen()){ 
             sf::Event event;
+            
             while (window.pollEvent(event) && !end_game())
             {
-                
+                window.clear();
+                face_up[face_up.size()-1].displayVisualCard(window, 500, 500);
+                cout << "Your turn" << endl;
+                 user.seeMyCardVisual(window);
+     
+                 int user_turn;
+                 //user_turn = getUserInput(window);
+                 sf::Text text;
+                 text.setString("Choose Card by index (Enter -1 to withdraw new card): ");
+                 text.setCharacterSize(30);
+                 text.setStyle(sf::Text::Bold);
+                 text.setFillColor(sf::Color::White);
+                 text.setPosition(1000,1000);
+                 
+                 window.draw(text);
+                 window.display();
                 // Check for specific events
                 switch (event.type)
                 {
                     case sf::Event::Closed:
                         window.close();
+                        break; 
+                    case sf::Event::TextEntered:
+                        if(event.text.unicode < 128){
+                            char user_key = static_cast<char>(event.text.unicode);
+                            user_turn = (int)user_key - 48;
+                            cout << "ASCII character typed: " << user_key << endl;
+                            if(user_turn == -1){ 
+                                cout << "Not a valid key" << endl;
+                            }else{
+                                if(user_turn < user.getHandSize() && user_turn >=0)
+                                    add_to_faceup(user.putCard(user_turn));
+                            }
+                            
+                        }
                         break;
-                    case sf::Event::KeyPressed:
-                        window.clear();
-                        face_up[face_up.size()-1].displayVisualCard(window, 500, 500);
-                        window.display();
-                        break;
-
                     default:
+                            cout << "Default event\n";
                         break;
                 }
             }
@@ -70,24 +95,9 @@ void UnoGame::run(){
         //play();
         //window.clear();
         //window.display();
+       
     }
-}
-void UnoGame::processEvents(){
-    sf::Event event;
-    while (window.pollEvent(event))
-    {
-        // Check for specific events
-        switch (event.type)
-        {
-            case sf::Event::Closed: 
-                break;
-            case sf::Event::KeyPressed:
-                cout << "A Key pressed\n";
-                break;
-            default:
-                break;
-        }
-    }
+    window.close();
 }
 void UnoGame::start(){
     //In the beginning of game
@@ -253,10 +263,18 @@ void UnoGame::check_facedown(){
         
     }//else there are still more card left in face down, don't do anything
 }
-int UnoGame::getUserInput(){
+int UnoGame::getUserInput(sf::RenderWindow &window){
     int result;
+    sf::Text text;
+    text.setString("Choose Card by index (Enter -1 to withdraw new card): ");
+    text.setCharacterSize(30);
+    text.setStyle(sf::Text::Bold);
+    text.setFillColor(sf::Color::Red);
+    text.setPosition(1000,1000);
+    window.clear();
     while(true){
-            cout << "Choose card by index (Enter -1 to withdraw new card): ";
+            window.draw(text);
+            window.display();
             cin >> result;
 
             //validating user's choice of card to see if that matches the 
