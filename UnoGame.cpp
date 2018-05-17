@@ -54,7 +54,7 @@ void UnoGame::run(){
                  user.seeMyCardVisual(window, 10);
      
                  int user_turn;
-                 user_turn = getUserInput(window);
+                // user_turn = getUserInput(window);
                  sf::Text text;
                  text.setString("Choose Card by index (Enter -1 to withdraw new card): ");
                  text.setCharacterSize(30);
