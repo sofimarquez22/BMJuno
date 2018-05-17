@@ -149,7 +149,6 @@ void UnoGame::start(){
     
 }
 void UnoGame::play(){
-
     sf::Event event;
     while (window.pollEvent(event))
     {
@@ -163,68 +162,7 @@ void UnoGame::play(){
             default:
                 break;
         }
-    }
- 
-/*
-    
-    do{
-        cout << "**\n**\nOn Deck\n";
-        window.clear();
-        face_up[face_up.size()-1].displayVisualCard(window, 500, 500);
-        window.display();
-
-        int deck_num = face_up[face_up.size()-1].getNum();
-        string deck_color = face_up[face_up.size()-1].getColor();
-        
-        //starting with user turn
-        cout << "YOUR TURN" << endl;
-        user.seeMyCard();
-        window.clear();
-        user.seeMyCardVisual(window);
-        window.display();
-        int user_turn;
-
-        //inquiring user choice
-        user_turn = getUserInput();
-
-        if(user_turn == -1){
-            //if has no match
-            //check if facedown is empty
-            check_facedown();
-            //withdraw from facedown (face down not empty)
-            user.addCard(face_down[face_down.size()-1]);
-            face_down.pop_back();
-            cout << "After Withdrawing" << endl;
-            user.seeMyCard();
-            //if that card can be played, play it
-            user_turn = user.checkCard(deck_color, deck_num);
-            
-            if(user_turn != -1){
-                add_to_faceup(user.putCard(user_turn));
-            }
-        }else{
-            //found a card
-            //put a card in the deck of faceup            
-            add_to_faceup(user.putCard(user_turn));
-        }
-        
-        
-        //show the most recent card from face up
-        cout << "**\n**\nOn Deck\n";
-        face_up[face_up.size()-1].displayCard();
-        
-        //other wise, move on to the next comp player
-        //comp turn
-        cout << "COMPUTER TURN" << endl; 
-        
-        deck_color = face_up[face_up.size()-1].getColor();
-        deck_num = face_up[face_up.size()-1].getNum();
-        
-        comp_turn(deck_color, deck_num);
-        
-    }while(!end_game());
-    */
-    
+    } 
 }
 void UnoGame::shuffle(vector<Card>& cards){
     unsigned int r_index = 0, total_num = cards.size();
