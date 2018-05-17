@@ -54,14 +54,14 @@ void UnoGame::run(){
                  user.seeMyCardVisual(window, 10);
      
                  int user_turn;
-                // user_turn = getUserInput(window);
+                 //user_turn = getUserInput(window);
                  sf::Text text;
-                 text.setString("Choose Card by index (Enter -1 to withdraw new card): ");
+                //text.setString("Choose Card by index (Enter -1 to withdraw new card): ");
                  text.setCharacterSize(30);
                  text.setStyle(sf::Text::Bold);
                  text.setFillColor(sf::Color::White);
                  text.setPosition(1000,1000);
-               // user_turn = getUserInput(window);
+               //user_turn = getUserInput(window);
                  window.draw(text);
                  window.display();
                 
@@ -73,6 +73,8 @@ void UnoGame::run(){
                             while(true){
                                 wait = false;
                                 char user_key = static_cast<char>(event.text.unicode);
+                                //ser_turn = getUserInput(window);
+
                                 user_turn = (int)user_key - 48;
                                 cout << "ASCII character typed: " << user_key << endl;
                                 if(!isdigit(user_key)){ 
@@ -235,7 +237,7 @@ int UnoGame::getUserInput(sf::RenderWindow &window){
     text.setCharacterSize(35);
     text.setStyle(sf::Text::Bold);
     text.setFillColor(sf::Color::White);
-    text.setPosition(500,500);
+    text.setPosition(500,1600);
     window.clear();
     /*while(true){
             cin >> result;
