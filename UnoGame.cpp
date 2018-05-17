@@ -55,16 +55,17 @@ void UnoGame::run(){
                  user.seeMyCardVisual(window);
      
                  int user_turn;
-                 //user_turn = getUserInput(window);
+                 user_turn = getUserInput(window);
                  sf::Text text;
                  text.setString("Choose Card by index (Enter -1 to withdraw new card): ");
                  text.setCharacterSize(30);
                  text.setStyle(sf::Text::Bold);
                  text.setFillColor(sf::Color::White);
                  text.setPosition(1000,1000);
-                 
+               // user_turn = getUserInput(window);
                  window.draw(text);
                  window.display();
+                
                 // Check for specific events
                 switch (event.type)
                 {
@@ -264,17 +265,23 @@ void UnoGame::check_facedown(){
     }//else there are still more card left in face down, don't do anything
 }
 int UnoGame::getUserInput(sf::RenderWindow &window){
-    int result;
+    int result =0;
+    sf::Font font;
+    if ( !font.loadFromFile( "font/upheavtt.ttf" ) )
+    {
+        cout << "File not loaded" << endl;
+       // system ("pause");
+    }
+    
     sf::Text text;
+    text.setFont(font);
     text.setString("Choose Card by index (Enter -1 to withdraw new card): ");
-    text.setCharacterSize(30);
+    text.setCharacterSize(35);
     text.setStyle(sf::Text::Bold);
-    text.setFillColor(sf::Color::Red);
-    text.setPosition(1000,1000);
+    text.setFillColor(sf::Color::White);
+    text.setPosition(500,500);
     window.clear();
-    while(true){
-            window.draw(text);
-            window.display();
+    /*while(true){
             cin >> result;
 
             //validating user's choice of card to see if that matches the 
@@ -282,10 +289,13 @@ int UnoGame::getUserInput(sf::RenderWindow &window){
             
             //it only check whether user has entered -1 
             //or an index num within the size of user's hand
-            if(result < user.getHandSize() && result >=-1){
-                break;
-            }
-        }
+           // if(result < user.getHandSize() && result >=-1){
+            //    break;
+          //  }
+        }*/
+    
+    window.draw(text);
+    window.display();
     return result;
 }
 void UnoGame::comp_turn(string deck_color, int deck_num){
