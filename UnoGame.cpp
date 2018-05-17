@@ -46,13 +46,12 @@ void UnoGame::run(){
     start();
     while(window.isOpen()){ 
             sf::Event event;
-            
-            while (window.pollEvent(event) && !end_game())
-            {
+            bool wait = true; 
+            while (window.pollEvent(event)){
                 window.clear();
                 face_up[face_up.size()-1].displayVisualCard(window, 500, 500);
                 cout << "Your turn" << endl;
-                 user.seeMyCardVisual(window);
+                 user.seeMyCardVisual(window, 10);
      
                  int user_turn;
                  user_turn = getUserInput(window);
@@ -67,38 +66,56 @@ void UnoGame::run(){
                  window.display();
                 
                 // Check for specific events
-                switch (event.type)
-                {
-                    case sf::Event::Closed:
+                if(event.type == sf::Event::Closed){
                         window.close();
-                        break; 
-                    case sf::Event::TextEntered:
+                }else if(event.type == sf::Event::TextEntered){
                         if(event.text.unicode < 128){
-                            char user_key = static_cast<char>(event.text.unicode);
-                            user_turn = (int)user_key - 48;
-                            cout << "ASCII character typed: " << user_key << endl;
-                            if(user_turn == -1){ 
-                                cout << "Not a valid key" << endl;
-                            }else{
-                                if(user_turn < user.getHandSize() && user_turn >=0)
-                                    add_to_faceup(user.putCard(user_turn));
+                            while(true){
+                                wait = false;
+                                char user_key = static_cast<char>(event.text.unicode);
+                                user_turn = (int)user_key - 48;
+                                cout << "ASCII character typed: " << user_key << endl;
+                                if(!isdigit(user_key)){ 
+                                    cout << "Not a valid key" << endl;
+                                    check_facedown();
+                                    user.addCard(face_down[face_down.size()-1]);
+                                    face_down.pop_back();
+                                    
+                                    user.seeMyCardVisual(window, 10);
+                                    window.draw(text);
+                                    window.display();
+                                    break; 
+                                }else{
+                                    if(user_turn < user.getHandSize() && user_turn >=0)
+                                        add_to_faceup(user.putCard(user_turn));
+                                    break;
+                                }
                             }
-                            
                         }
-                        break;
-                    default:
-                            cout << "Default event\n";
-                        break;
                 }
-            }
+                //comp turn
+                if(!wait){
+                    //Don't process anything if waiting
+                
+                    face_up[face_up.size()-1].displayVisualCard(window, 500, 500);
+                    string deck_color = face_up[face_up.size()-1].getColor();
+                    int deck_num = face_up[face_up.size()-1].getNum();
+                    cout << "Computer turn" << endl;
+                    //deck_color = face_up[face_up.size()-1].getColor();
+                    //deck_num = face_up[face_up.size()-1].getNum();
 
-        //processEvents();//included to this event in the play()
-        //play();
-        //window.clear();
-        //window.display();
-       
-    }
-    window.close();
+                    comp_turn(deck_color, deck_num);
+                    window.display();
+                }
+                wait = true;
+
+            }//end of pollEvent while loop
+
+        if(end_game()){
+            //Check end of game
+            window.close();
+        }
+    } 
 }
 void UnoGame::start(){
     //In the beginning of game
@@ -300,6 +317,7 @@ int UnoGame::getUserInput(sf::RenderWindow &window){
 }
 void UnoGame::comp_turn(string deck_color, int deck_num){
     int comp_turn = comp.checkCard(deck_color, deck_num);
+    comp.seeMyCardVisual(window, 800);
     if(comp_turn == -1){
         check_facedown();
         comp.addCard(face_down[face_down.size()-1]);
@@ -314,6 +332,5 @@ void UnoGame::comp_turn(string deck_color, int deck_num){
         //put a card in the deck of faceup
         add_to_faceup(comp.putCard(comp_turn));
     }
-
 
 }

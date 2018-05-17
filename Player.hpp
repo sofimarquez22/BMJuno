@@ -23,7 +23,7 @@ class Player
         int checkCard(string color, int number);
         void seeMyCard();
         bool emptyHand();
-        void seeMyCardVisual(sf::RenderWindow &window);
+        void seeMyCardVisual(sf::RenderWindow &window, int y);
 
     protected:
         vector<Card> cards_hand;
