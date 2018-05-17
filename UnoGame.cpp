@@ -43,61 +43,65 @@ UnoGame::~UnoGame(){
 
 }
 void UnoGame::run(){
+
+    int plays_count = 0;
     start();
+
     while(window.isOpen()){ 
             sf::Event event;
             bool wait = true; 
             while (window.pollEvent(event)){
+                
                 window.clear();
                 face_up[face_up.size()-1].displayVisualCard(window, 500, 500);
                 cout << "Your turn" << endl;
-                 user.seeMyCardVisual(window, 10);
-     
-                 int user_turn;
-                // user_turn = getUserInput(window);
-                 sf::Text text;
-                 text.setString("Choose Card by index (Enter -1 to withdraw new card): ");
-                 text.setCharacterSize(30);
-                 text.setStyle(sf::Text::Bold);
-                 text.setFillColor(sf::Color::White);
-                 text.setPosition(1000,1000);
-               // user_turn = getUserInput(window);
-                 window.draw(text);
-                 window.display();
+                user.seeMyCardVisual(window, 10);
+                 comp.seeMyCardVisual(window, 800);
+                int user_turn;
+                //user_turn = getUserInput(window);
                 
+                window.display();
+
                 // Check for specific events
                 if(event.type == sf::Event::Closed){
                         window.close();
                 }else if(event.type == sf::Event::TextEntered){
-                        if(event.text.unicode < 128){
-                            while(true){
+                    if(event.text.unicode < 128){
+                         char user_key = static_cast<char>(event.text.unicode);
+                         user_turn = (int)user_key - 48;
+                         cout << "ASCII character typed: " << user_key << endl;
+                         if(!isdigit(user_key)){
+                             //counter check if
+                            if(plays_count == 0){
+                                plays_count++;
+                                cout << "Withdraw a new card" << endl;
+                                check_facedown();
+                                user.addCard(face_down[face_down.size()-1]);
+                                face_down.pop_back();
+                                user.seeMyCardVisual(window, 10);
+                                cout <<"player's count"<< plays_count << endl;
+                                window.display();
+
+                            }else{
+                                plays_count = 0;
                                 wait = false;
-                                char user_key = static_cast<char>(event.text.unicode);
-                                user_turn = (int)user_key - 48;
-                                cout << "ASCII character typed: " << user_key << endl;
-                                if(!isdigit(user_key)){ 
-                                    cout << "Not a valid key" << endl;
-                                    check_facedown();
-                                    user.addCard(face_down[face_down.size()-1]);
-                                    face_down.pop_back();
-                                    
-                                    user.seeMyCardVisual(window, 10);
-                                    window.draw(text);
-                                    window.display();
-                                    break; 
-                                }else{
-                                    if(user_turn < user.getHandSize() && user_turn >=0)
-                                        add_to_faceup(user.putCard(user_turn));
-                                    break;
-                                }
+                                cout <<"player's count"<< plays_count << endl;
                             }
+                         }else if(user_turn <= user.getHandSize() && user_turn >=0){
+                            add_to_faceup(user.putCard(user_turn-1));
+                            wait = false;
+                         
+                         }else{
+                            cout << "Invalid option" << endl;
+                         
+                         }
                         }
                 }
                 //comp turn
                 if(!wait){
-                    //Don't process anything if waiting
-                
+                    window.clear();
                     face_up[face_up.size()-1].displayVisualCard(window, 500, 500);
+                    user.seeMyCardVisual(window, 10);
                     string deck_color = face_up[face_up.size()-1].getColor();
                     int deck_num = face_up[face_up.size()-1].getNum();
                     cout << "Computer turn" << endl;
@@ -108,7 +112,6 @@ void UnoGame::run(){
                     window.display();
                 }
                 wait = true;
-
             }//end of pollEvent while loop
 
         if(end_game()){

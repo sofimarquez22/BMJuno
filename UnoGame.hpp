@@ -13,7 +13,7 @@
 using namespace std;
 
 const int WIDTH= 2000;
-const int HEIGHT = 2000;
+const int HEIGHT = 1500;
 
 class UnoGame{
 protected:
