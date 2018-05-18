@@ -58,10 +58,13 @@ void UnoGame::run(){
                 face_up[face_up.size()-1].displayVisualCard(window, 500, 500);
                 cout << "Your turn" << endl;
                 user.seeMyCardVisual(window, 10);
-                 comp.seeMyCardVisual(window, 800);
-                int user_turn;
-                //user_turn = getUserInput(window);
+                comp.seeMyCardVisual(window, 800);
                 
+                getUserInput(window);
+     
+                int user_turn;
+                
+
                 window.display();
 
                 // Check for specific events
@@ -69,8 +72,10 @@ void UnoGame::run(){
                         window.close();
                 }else if(event.type == sf::Event::TextEntered){
                     if(event.text.unicode < 128){
+                        
                          char user_key = static_cast<char>(event.text.unicode);
                          user_turn = (int)user_key - 48;
+                        getUserInput(window);
                          cout << "ASCII character typed: " << user_key << endl;
                          if(!isdigit(user_key)){
                              //counter check if
@@ -145,9 +150,19 @@ void UnoGame::run(){
             }//end of pollEvent while loop
 
         if(end_game()){
+            window.clear();
+            end(window);
+            window.display();
+            wait = true;
+            close(window);
+           
+            
             //Check end of game
-            window.close();
+           // window.close();
         }
+        
+        
+        
     } 
 }
 void UnoGame::start(){
@@ -209,24 +224,76 @@ void UnoGame::shuffle(vector<Card>& cards){
     }
     
 }
-bool UnoGame::end_game(){
+int UnoGame::end_game(){
     //if either user has empty card
     if(user.emptyHand()){
-        cout << "User won!" << endl;
+        //cout << "User won!" << endl;
         return true;
         //end game
-        cout << "End of game" << endl;
+       // cout << "End of game" << endl;
     }
     //if comp has empty card
     if(comp.emptyHand()){
-        cout << "Computer won!" << endl;
+        //cout << "Computer won!" << endl;
         return true;
         //end game
-        cout << "End of game" << endl;
+       // cout << "End of game" << endl;
     }
     
     return false;
 }
+void UnoGame::end(sf::RenderWindow &window){
+    sf::Font font;
+    if ( !font.loadFromFile( "font/upheavtt.ttf" ) )
+    {
+        cout << "File not loaded" << endl;
+        // system ("pause");
+    }
+    
+    sf::Text text;
+    sf::Text endMsg;
+    endMsg.setFont(font);
+    text.setFont(font);
+    
+    
+    //text.setString("Choose Card by index (Enter -1 to withdraw new card): ");
+    text.setCharacterSize(120);
+    endMsg.setCharacterSize(100);
+    text.setStyle(sf::Text::Bold);
+    endMsg.setStyle(sf::Text::Bold);
+    endMsg.setFillColor(sf::Color::White);
+    text.setFillColor(sf::Color::White);
+    endMsg.setPosition(500,1000);
+    text.setPosition(500,500);
+    //window.clear();
+    //if either user has empty card
+    if(user.emptyHand()){
+        text.setString("YOU WON!");
+        // return true;
+        //end game
+        endMsg.setString("End Of Game");
+        window.draw(text);
+        window.draw(endMsg);
+        //window.display();
+        //window.close();
+    }
+    if(comp.emptyHand()){
+        text.setString("Computer won!");
+        //return true;
+        //end game
+        endMsg.setString("End Of Game");
+        window.draw(text);
+        window.draw(endMsg);
+        //window.display();
+        //window.close();
+    
+    }
+    //if comp has empty card
+    //return false;
+}
+
+
+
 void UnoGame::add_to_faceup(Card c){
     //add to face up when player as a card that matches
     face_up.push_back(c);
@@ -253,8 +320,7 @@ void UnoGame::check_facedown(){
         
     }//else there are still more card left in face down, don't do anything
 }
-int UnoGame::getUserInput(sf::RenderWindow &window){
-    int result =0;
+void UnoGame::getUserInput(sf::RenderWindow &window){
     sf::Font font;
     if ( !font.loadFromFile( "font/upheavtt.ttf" ) )
     {
@@ -268,8 +334,8 @@ int UnoGame::getUserInput(sf::RenderWindow &window){
     text.setCharacterSize(35);
     text.setStyle(sf::Text::Bold);
     text.setFillColor(sf::Color::White);
-    text.setPosition(500,500);
-    window.clear();
+    text.setPosition(500,1000);
+    //window.clear();
     /*while(true){
             cin >> result;
 
@@ -284,8 +350,8 @@ int UnoGame::getUserInput(sf::RenderWindow &window){
         }*/
     
     window.draw(text);
-    window.display();
-    return result;
+    //window.display();
+    //return result;
 }
 void UnoGame::comp_turn(string deck_color, int deck_num){
     int comp_turn = comp.checkCard(deck_color, deck_num);
@@ -306,3 +372,29 @@ void UnoGame::comp_turn(string deck_color, int deck_num){
     }
 
 }
+void UnoGame::close(sf::RenderWindow &window)
+{
+    sf::Clock clock;
+    sf::Time time;
+    time = clock.getElapsedTime();
+    bool wait = true;
+    while(window.isOpen())
+    {
+        while(window.isOpen())
+        {
+            sf::Event event;
+            while(window.pollEvent(event))
+            {
+                if(event.type == sf::Event::Closed)
+                    window.close();
+                else{
+                    if( sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+                        window.close();
+
+                }
+                
+            }
+        }
+    }
+}
+
