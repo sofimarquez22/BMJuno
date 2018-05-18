@@ -9,6 +9,7 @@
 #include <vector>
 #include <cstdlib>
 #include <ctime>
+#include "Menu.hpp"
 
 using namespace std;
 

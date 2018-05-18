@@ -14,7 +14,25 @@ int Player::checkCard(string color, int number)
     }
     return -1;
 }
-
+int Player::checkCardIndex(int number){
+    for(int i = 0; i < cards_hand.size(); i++){
+        if(cards_hand[i].getNum() == number)
+            return i;
+    }
+    return -1;
+}
+int Player::checkCardColor(string color, int number){
+    for(int i = 0; i < cards_hand.size(); i++){
+        if(cards_hand[i].getNum() == number){
+            cout << "Pressed number is " << number << endl;
+            if(cards_hand[i].getColor() == color){
+                cout << "Finding for the color " << color << endl;
+                return i;
+            }
+        }
+    }
+    return -1;
+}
 Card Player::putCard(int index)
 {
     Card result_card;
@@ -50,7 +68,7 @@ void Player::seeMyCardVisual(sf::RenderWindow &window, int y){
     int pos = 0;
     for(int i = 0; i < cards_hand.size(); i++){
         cards_hand[i].displayVisualCard(window, pos, y);
-        pos += 100;
+        pos += 120;
     }
 }
 
