@@ -43,7 +43,9 @@ UnoGame::~UnoGame(){
 
 }
 void UnoGame::run(){
-
+    //sort of create delay effect for comp's play
+    sf::Time delayTime = sf::seconds(1);
+    sf::Clock clock;
     int plays_count = 0;
     start();
 
@@ -52,7 +54,7 @@ void UnoGame::run(){
             bool wait = true; 
             while (window.pollEvent(event)){
                 
-                window.clear();
+                window.clear(sf::Color(19,122,99));
                 face_up[face_up.size()-1].displayVisualCard(window, 500, 500);
                 cout << "Your turn" << endl;
                 user.seeMyCardVisual(window, 10);
@@ -102,9 +104,10 @@ void UnoGame::run(){
                          }
                         }
                 }
+       
                 //comp turn
                 if(!wait){
-                    window.clear();
+                    window.clear(sf::Color(19,122,99));
                     face_up[face_up.size()-1].displayVisualCard(window, 500, 500);
                     user.seeMyCardVisual(window, 10);
                     string deck_color = face_up[face_up.size()-1].getColor();
@@ -114,7 +117,9 @@ void UnoGame::run(){
                     //deck_num = face_up[face_up.size()-1].getNum();
 
                     comp_turn(deck_color, deck_num);
+                    
                     window.display();
+                    sf::sleep(delayTime);
                 }
                 wait = true;
             }//end of pollEvent while loop
