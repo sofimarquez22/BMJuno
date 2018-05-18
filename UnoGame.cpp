@@ -305,11 +305,11 @@ void UnoGame::getUserInput(sf::RenderWindow &window){
     
     sf::Text text;
     text.setFont(font);
-    text.setString("Choose Card by index (Enter -1 to withdraw new card): ");
+    text.setString("Choose Card by index (Enter any key to withdraw new card): ");
     text.setCharacterSize(35);
     text.setStyle(sf::Text::Bold);
     text.setFillColor(sf::Color::White);
-    text.setPosition(500,1000);
+    text.setPosition(500,1200);
     //window.clear();
     /*while(true){
             cin >> result;
