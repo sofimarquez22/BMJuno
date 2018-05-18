@@ -13,7 +13,7 @@
 using namespace std;
 
 const int WIDTH= 2000;
-const int HEIGHT = 2000;
+const int HEIGHT = 1500;
 
 class UnoGame{
 protected:
@@ -33,12 +33,13 @@ public:
     void start();
     void play();
     void shuffle(vector<Card>& cards);
-    bool end_game();
+    int end_game();
+    void end(sf::RenderWindow &window);
     void add_to_faceup(Card c);
     void check_facedown();
-    int getUserInput(sf::RenderWindow &window);
+    void getUserInput(sf::RenderWindow &window);
     void comp_turn(string deck_color, int deck_num);
-    
+    void close(sf::RenderWindow &window);
 };
 
 #endif //UNOGAME_HPP 
