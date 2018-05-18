@@ -20,7 +20,9 @@ class Player
         int getHandSize()const{return cards_hand.size();}
         void addCard(Card c);
         Card putCard(int index);
-        int checkCard(string color, int number);
+        int checkCard(string color, int number); 
+        int checkCardIndex(int number);
+        int checkCardColor(string color, int number);
         void seeMyCard();
         bool emptyHand();
         void seeMyCardVisual(sf::RenderWindow &window, int y);

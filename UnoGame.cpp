@@ -44,7 +44,7 @@ UnoGame::~UnoGame(){
 }
 void UnoGame::run(){
     //sort of create delay effect for comp's play
-    sf::Time delayTime = sf::seconds(1);
+    sf::Time delayTime = sf::seconds(.5);
     sf::Clock clock;
     int plays_count = 0;
     start();
@@ -95,9 +95,34 @@ void UnoGame::run(){
                                 cout <<"player's count"<< plays_count << endl;
                             }
                          }else if(user_turn <= user.getHandSize() && user_turn >=0){
-                            add_to_faceup(user.putCard(user_turn-1));
-                            wait = false;
+                                // index play version
+                                add_to_faceup(user.putCard(user_turn-1));
+                                wait = false;
                          
+                         }else if(user_turn >=0 && user_turn <=9){ 
+                                //smart play version
+                                string deck_color = face_up[face_up.size()-1].getColor();
+                                int deck_num = face_up[face_up.size()-1].getNum();
+                                if(user_turn == deck_num){
+                                    // if user input == face_up deck's num
+                                    // find the corresponding card to user's input
+                                    user_turn = user.checkCardIndex(deck_num);
+                                    if(user_turn == -1)
+                                        break;
+                                    // allocate the index of the corresponding card
+                                    // using the index add_to_faceup 
+                                    add_to_faceup(user.putCard(user_turn));
+                                }else{
+                                    // if user input doesn't match with face_up deck's num
+                                    // find the matching card color
+                                    user_turn = user.checkCardColor(deck_color, user_turn);
+                                    cout  << "check card color " << deck_color << deck_num << endl;
+                                    if(user_turn == -1)
+                                        break;
+                                    add_to_faceup(user.putCard(user_turn));
+                                }
+                                wait = false;
+
                          }else{
                             cout << "Invalid option" << endl;
                          
